@@ -1,0 +1,8 @@
+streamlit
+langchain-community
+faiss-cpu
+python-dotenv
+PyPDF2
+python-docx
+huggingface-hub
+numpy
