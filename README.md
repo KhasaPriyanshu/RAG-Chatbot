@@ -1,6 +1,6 @@
 # RAG Q&A Chatbot
 
-A Streamlit-based Retrieval-Augmented Generation system that ingests documents, creates embeddings with FAISS, and uses Mistral-7B-Instruct for concise, accurate answers.
+A Streamlit-based Retrieval-Augmented Generation system that ingests documents, creates embeddings with FAISS, and uses Google Generative AI for concise, accurate answers.
 
 ---
 
@@ -9,13 +9,13 @@ A Streamlit-based Retrieval-Augmented Generation system that ingests documents, 
 1. **Data Ingestion**  
    Raw files or URLs are loaded from `/data`.  
 2. **Preprocessing & Chunking**  
-   Documents are split into 1,000-character chunks and saved under `/chunks`.  
+   Documents are split into 200-character chunks and saved under `/chunks`.  
 3. **Embedding & Vector Store**  
    Each chunk is embedded using the `sentence-transformers/all-mpnet-base-v2` model, then indexed in FAISS under `/vectordb`.  
 4. **Retrieval & Generation Pipeline**  
    The pipeline (in `/src`) ties together:
    - A retriever that fetches top-K relevant chunks  
-   - A generator (Mistral-7B-Instruct) that streams answers based solely on retrieved context  
+   - A generator (Google Generative AI) that streams answers based solely on retrieved context  
 5. **Streamlit App**  
    `app.py` provides a UI for ingestion, querying, and live streaming of answers.
 
@@ -23,11 +23,16 @@ A Streamlit-based Retrieval-Augmented Generation system that ingests documents, 
 
 ## Prerequisites
 
-1. Clone this repository.  
-2. Create a `.env` file at the project root:
+1. Clone this repository.
    ```bash
-   HUGGINGFACEHUB_API_TOKEN=your_hf_token_here
-   ```  
+   git clone https://github.com/KhasaPriyanshu/RAG-Chatbot
+   cd RAG-Chatbot
+   ```
+2. Setup the environment
+   ```bash
+   python -m venv myenv
+   myenv\Scripts\Activate
+   ```
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
@@ -41,13 +46,13 @@ Run the notebook or script in `/notebooks` to experiment, or call directly from 
 
 ```bash
 python -c "from src.data_processing import process_input; \
-process_input('PDF', open('data/mydoc.pdf','rb'))"
+process_input('PDF', open('data/AI Training Document.pdf','rb'))"
 ```
 
 This will:
 
 - Read your PDF/DOCX/TXT/Text or scrape a Link  
-- Split into 1,000-char overlapping chunks  
+- Split into 150-char overlapping chunks  
 - Save each chunk as JSON in `/chunks`
 
 ---
@@ -75,13 +80,13 @@ Use `/src/vector_store.py` to:
 ## 3. Model & Embedding Choices
 
 - **Embedding Model:**  
-  `sentence-transformers/all-mpnet-base-v2`  
+  `models/embedding-001`  
   • Excellent semantic coverage, CPU-friendly, 768‐dimensional vectors.
 
 - **Generation Model:**  
-  `mistralai/Mistral-7B-Instruct-v0.1`  
-  • Lightweight 7B-parameter instruct-tuned model with fast latency and high quality.  
-  • Supports streaming via Hugging Face InferenceClient.
+  `gemini-1.5-flash`  
+  • Lightweight instruct-tuned model with fast latency and high quality.  
+  • Supports streaming via `ChatGoogleGenerativeAI`
 
 ---
 
@@ -116,10 +121,11 @@ streamlit run app.py
 
 - **Streaming Response:**  
   Answers appear token by token for instant feedback.  
-- **Reset/Reload:**  
-  Use the sidebar “🔄 Reset” button to clear all indexed data.  
+- **Reset/Rerun:**  
+  Use the sidebar "Reset” button to rerun the query.
+  Use the sidebar "Rerun" button to clear all indexed data.
 - **Live Metrics:**  
-  Sidebar displays current chunk count.
+  Sidebar displays current model in use.
 
 ---
 
@@ -140,10 +146,9 @@ streamlit run app.py
     ├── generation.py
     └── pipeline.py
 ```
-<img width="602" height="276" alt="Picture1" src="https://github.com/user-attachments/assets/7c414f28-d97f-4a81-9cd1-39558ebc299b" />
 
-<img width="602" height="274" alt="Picture2" src="https://github.com/user-attachments/assets/c03dcc64-34cc-4758-a948-30480a158479" />
 
-<img width="602" height="222" alt="Picture3" src="https://github.com/user-attachments/assets/409b0538-4795-484b-a66e-ab15713e95e6" />
 
-<img width="602" height="239" alt="Picture4" src="https://github.com/user-attachments/assets/d212742c-6ee6-47a2-9b51-9794da11f11b" />
+https://github.com/user-attachments/assets/928d8fef-67db-4e99-8c19-67c495ce84b5
+
+
