@@ -140,4 +140,10 @@ streamlit run app.py
     ├── generation.py
     └── pipeline.py
 ```
+<img width="602" height="276" alt="Picture1" src="https://github.com/user-attachments/assets/7c414f28-d97f-4a81-9cd1-39558ebc299b" />
 
+<img width="602" height="274" alt="Picture2" src="https://github.com/user-attachments/assets/c03dcc64-34cc-4758-a948-30480a158479" />
+
+<img width="602" height="222" alt="Picture3" src="https://github.com/user-attachments/assets/409b0538-4795-484b-a66e-ab15713e95e6" />
+
+<img width="602" height="239" alt="Picture4" src="https://github.com/user-attachments/assets/d212742c-6ee6-47a2-9b51-9794da11f11b" />
